@@ -1,0 +1,24 @@
+plugins {
+    id 'java'
+    id 'application'
+}
+
+group 'com.shankhadeepghoshal'
+version '1.0'
+
+sourceCompatibility = 1.8
+
+mainClassName = 'Test'
+
+repositories {
+    mavenCentral()
+}
+
+run {
+    standardInput = System.in
+}
+
+dependencies {
+    // https://mvnrepository.com/artifact/org.junit/junit5-engine
+    testCompile group: 'org.junit', name: 'junit5-engine', version: '5.0.0-ALPHA'
+}
