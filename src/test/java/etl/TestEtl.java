@@ -1,3 +1,5 @@
+package etl;
+
 import org.junit.jupiter.api.*;
 
 import java.util.Locale;
@@ -8,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-public class TestEtl {
+class TestEtl {
     private static final String DATA_RAW = "The quick brown fox, jumped over the lazy dog.";
     private static final String DATA_PUNCTUATIONS_REMOVED =
             "The quick brown fox  jumped over the lazy dog ";
