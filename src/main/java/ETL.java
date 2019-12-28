@@ -3,14 +3,16 @@ import java.util.*;
 /**
  * Recommended way to use is to initialize this using the {@link #ETL(String)} constructor and
  * chaining {@link #removeSpecialCharacters()}, followed by {@link #removeExtraWhitespace()},
- * followed by {@link #toLowerCase(Locale)} and then converting it to word map by chaining {@link #createWordMap()}
+ * followed by {@link #toLowerCase(Locale)} and then converting it to word map by chaining
+ * {@link #createWordMap()}
  */
 public class ETL {
     private final String data;
     private final Map<String, Set<Integer>> wordMap;
 
     /**
-     * @apiNote Placed only to enable Reflection. Not recommended for usage.
+     * @apiNote Placed only to enable Reflection. Not recommended for usage. Use
+     * {@link #ETL(String)} instead
      */
     public ETL() {
         this.data = "";
@@ -46,7 +48,7 @@ public class ETL {
         String newData = data.toLowerCase(locale);
         return new ETL(newData);
     }
-    
+
     public ETL createWordMap() {
         String[] words = data.split("\\s");
 
