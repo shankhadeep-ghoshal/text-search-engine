@@ -1,4 +1,4 @@
-#Text Search Engine 
+# Text Search Engine 
 
 ### Introduction
 This is a text search engine that searches through a set of files in a given directory for 
