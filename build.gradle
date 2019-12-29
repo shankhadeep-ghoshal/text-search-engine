@@ -8,10 +8,21 @@ version '1.0'
 
 sourceCompatibility = 1.8
 
-mainClassName = 'Test'
+mainClassName = 'Application'
 
 repositories {
     mavenCentral()
+}
+
+task fatJar(type: Jar) {
+    manifest {
+        attributes 'Implementation-Title': 'Far Release',
+                'Implementation-Version': version,
+                'Main-Class': 'Application'
+    }
+    baseName = project.name
+    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
+    with jar
 }
 
 run {
