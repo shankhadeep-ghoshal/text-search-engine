@@ -37,6 +37,9 @@ public class FileDriver {
 
     public void initialize() {
         findAllFilesInDirectory();
+        System.out.println(fileLocation.size()
+                + " file/s read in directory "
+                + folderLocation);
         this.tasksList = fileLocation.stream()
                 .map(s -> CompletableFuture.supplyAsync(() ->
                 new FilePerformEndToEndOnOne(s).readData(), threadPool)
