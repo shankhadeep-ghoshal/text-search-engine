@@ -19,7 +19,7 @@ public class FileDataReader extends AbstractDataReader {
         StringBuilder stringBuilder = new StringBuilder();
 
         try (Stream<String> fileStream = Files.lines(Paths.get(dataLocation).toAbsolutePath(),
-                StandardCharsets.UTF_8)) {
+                StandardCharsets.UTF_8).parallel()) {
             fileStream.forEach(stringBuilder::append);
         } catch (IOException ignored) {
 

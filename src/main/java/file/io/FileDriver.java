@@ -43,7 +43,7 @@ public class FileDriver {
         this.tasksList = fileLocation.stream()
                 .map(s -> CompletableFuture.supplyAsync(() ->
                 new FilePerformEndToEndOnOne(s).readData(), threadPool)
-                .thenApplyAsync(FilePerformEndToEndOnOne::performEtl))
+                .thenApplyAsync(FilePerformEndToEndOnOne::performEtl, threadPool))
                 .collect(Collectors.toList());
     }
 
@@ -51,7 +51,8 @@ public class FileDriver {
         tasksList.forEach(filePerformEndToEndOnOneCompletableFuture ->
                 filePerformEndToEndOnOneCompletableFuture
                         .thenApplyAsync(filePerformEndToEndOnOne ->
-                                filePerformEndToEndOnOne.calculateMatchPercentage(pattern))
+                                filePerformEndToEndOnOne.calculateMatchPercentage(pattern),
+                                threadPool)
                         .thenAccept(this::printData));
     }
 

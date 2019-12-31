@@ -10,21 +10,11 @@ import java.util.*;
  */
 public class ETL {
     private final String data;
-    private final Map<String, Set<Integer>> wordMap;
-
-    /**
-     * @apiNote Placed only to enable Reflection. Not recommended for usage. Use
-     * {@link #ETL(String)} instead
-     */
-    public ETL() {
-        this.data = "";
-        this.wordMap = new HashMap<>();
-    }
+    private Map<String, Set<Integer>> wordMap;
 
     public ETL(String data) {
         assert data != null;
         this.data = data;
-        this.wordMap = new HashMap<>();
     }
 
     /**
@@ -53,6 +43,7 @@ public class ETL {
 
     public ETL createWordMap() {
         String[] words = data.split("\\s");
+        this.wordMap = new HashMap<>();
 
         for (int i = 0; i < words.length; i++) {
             if (!wordMap.containsKey(words[i])) {
