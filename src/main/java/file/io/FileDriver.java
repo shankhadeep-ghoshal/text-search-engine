@@ -16,21 +16,25 @@ import java.util.stream.Stream;
 
 public class FileDriver {
     private final PrintStream outputStream;
-    private final ExecutorService threadPool;
+    private final ExecutorService threadPoolIO;
+    private final ExecutorService threadPoolComputation;
     private final List<String> fileLocation;
     private final String folderLocation;
 
     private List<CompletableFuture<FilePerformEndToEndOnOne>> tasksList;
 
     public FileDriver(final PrintStream outputStream,
-                      final ExecutorService threadPool,
+                      final ExecutorService threadPoolIO,
+                      final ExecutorService threadPoolComputation,
                       final String folderLocation) {
         assert folderLocation != null;
-        assert threadPool != null;
+        assert threadPoolIO != null;
+        assert threadPoolComputation != null;
         assert outputStream != null;
 
         this.outputStream = outputStream;
-        this.threadPool = threadPool;
+        this.threadPoolIO = threadPoolIO;
+        this.threadPoolComputation = threadPoolComputation;
         this.folderLocation = folderLocation;
         this.fileLocation = new ArrayList<>(0);
     }
@@ -42,8 +46,8 @@ public class FileDriver {
                 + folderLocation);
         this.tasksList = fileLocation.stream()
                 .map(s -> CompletableFuture.supplyAsync(() ->
-                new FilePerformEndToEndOnOne(s).readData(), threadPool)
-                .thenApplyAsync(FilePerformEndToEndOnOne::performEtl, threadPool))
+                new FilePerformEndToEndOnOne(s).readData(), threadPoolIO)
+                .thenApplyAsync(FilePerformEndToEndOnOne::performEtl, threadPoolComputation))
                 .collect(Collectors.toList());
     }
 
@@ -52,7 +56,7 @@ public class FileDriver {
                 filePerformEndToEndOnOneCompletableFuture
                         .thenApplyAsync(filePerformEndToEndOnOne ->
                                 filePerformEndToEndOnOne.calculateMatchPercentage(pattern),
-                                threadPool)
+                                threadPoolComputation)
                         .thenAccept(this::printData));
     }
 
