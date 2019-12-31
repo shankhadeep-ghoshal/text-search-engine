@@ -35,7 +35,13 @@ public class FilePerformEndToEndOnOne {
     }
 
     public FilePerformEndToEndOnOne calculateMatchPercentage(final String inputPattern) {
-        this.matchPercentage = new MatchTextPercentage(wordMap, inputPattern.split("\\s+"))
+        this.matchPercentage = new MatchTextPercentage(wordMap,
+                new ETL(inputPattern)
+                        .removeSpecialCharacters()
+                        .removeExtraWhitespace()
+                        .toLowerCase(Locale.getDefault())
+                        .getData()
+                        .split("\\s+"))
                 .calculatePercentageWordMatchInText();
         return this;
     }
